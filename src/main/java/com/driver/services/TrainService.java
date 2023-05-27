@@ -147,6 +147,8 @@ public class TrainService {
         if( optionalTrain.isEmpty() ){
             throw new Exception("Train does not exist!!");
         }
+        Train train = optionalTrain.get();
+
         List<Ticket> bookedTickets = train.getBookedTickets();
         for( Ticket t : bookedTickets ){
                 List<Passenger> passengerList = t.getPassengersList();
