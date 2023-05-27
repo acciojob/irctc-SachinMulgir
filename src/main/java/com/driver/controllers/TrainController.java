@@ -34,9 +34,15 @@ public class TrainController {
     }
 
     @GetMapping("/calculate-avaiable-seats")
-    public Integer checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto){
-        Integer count = trainService.calculateAvailableSeats(seatAvailabilityEntryDto);
-        return count;
+    public Integer checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto) throws Exception {
+        try{
+            Integer count = trainService.calculateAvailableSeats(seatAvailabilityEntryDto);
+            return count;
+        }
+        catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
     @GetMapping("/calculate-people-onboarding")
