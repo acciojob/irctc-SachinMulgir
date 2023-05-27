@@ -41,7 +41,7 @@ public class TrainService {
         StringBuilder sb = new StringBuilder();
         for( Station s : stationRoute ){
             sb.append(s);
-            sb.append(", ");
+            sb.append(",");
         }
         return sb.toString();
     }
