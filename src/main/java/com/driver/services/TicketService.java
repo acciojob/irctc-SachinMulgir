@@ -39,16 +39,10 @@ public class TicketService {
             }
         }
 
-        //2.check bookingPersonId:
-        Optional<Passenger> optionalPassenger = this.passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
-        if( optionalPassenger.isEmpty() ){
-            throw new Exception("Booking person does not exist!!");
-        }
-        Passenger bookingPerson = optionalPassenger.get();
 
         //3.Train:
         Optional<Train> optionalTrain = this.trainRepository.findById(bookTicketEntryDto.getTrainId());
-        if( optionalPassenger.isEmpty() ){
+        if( optionalTrain.isEmpty() ){
             throw new Exception("Train does not exist!!");
         }
         Train train = optionalTrain.get();
@@ -115,6 +109,13 @@ public class TicketService {
         //Save the bookedTickets in the train Object
         //Also in the passenger Entity change the attribute bookedTickets by using the attribute bookingPersonId.
         train.getBookedTickets().add(savedTicket);
+
+        //2.check bookingPersonId:
+        Optional<Passenger> optionalPassenger = this.passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
+        if( optionalPassenger.isEmpty() ){
+            throw new Exception("Booking person does not exist!!");
+        }
+        Passenger bookingPerson = optionalPassenger.get();
 
         bookingPerson.getBookedTickets().add(savedTicket);
 
