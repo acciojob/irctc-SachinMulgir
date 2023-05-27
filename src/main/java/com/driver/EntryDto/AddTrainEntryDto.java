@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AddTrainEntryDto {
 
-    private List<Station> stationRoute; //The items in the list denote the  order in which the train will move
+    private List<Station> stationRoute;   //The items in the list denote the  order in which the train will move
 
     private LocalTime departureTime;
 
@@ -24,6 +24,7 @@ public class AddTrainEntryDto {
     }
 
     public AddTrainEntryDto() {
+
     }
 
     public void setStationRoute(List<Station> stationRoute) {

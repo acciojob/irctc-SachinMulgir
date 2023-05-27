@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TicketService {
@@ -27,16 +28,38 @@ public class TicketService {
     PassengerRepository passengerRepository;
 
 
-    public Integer bookTicket(BookTicketEntryDto bookTicketEntryDto)throws Exception{
+    public Integer bookTicket(BookTicketEntryDto bookTicketEntryDto) throws Exception{
 
         //Check for validity
+        //1. Check if all passengers exist or not:
+        for( int id : bookTicketEntryDto.getPassengerIds()){
+            Optional<Passenger> passengerOptional = this.passengerRepository.findById(id);
+            if( passengerOptional.isEmpty() ){
+                throw new Exception("Passenger with id : " + id + " doesn't exist");
+            }
+        }
+
+        //2.check bookingPersonId:
+        Optional<Passenger> optionalPassenger = this.passengerRepository.findById(bookTicketEntryDto.getBookingPersonId());
+        if( optionalPassenger.isEmpty() ){
+            throw new Exception("Booking person does not exist!!");
+        }
+
+        //3.Train:
+        Optional<Train> optionalTrain = this.trainRepository.findById(bookTicketEntryDto.getTrainId());
+        if( optionalPassenger.isEmpty() ){
+            throw new Exception("Train does not exist!!");
+        }
+
+
+
         //Use bookedTickets List from the TrainRepository to get bookings done against that train
-        // Incase the there are insufficient tickets
-        // throw new Exception("Less tickets are available");
+        //In-case the there are insufficient tickets
+        //throw new Exception("Less tickets are available");
         //otherwise book the ticket, calculate the price and other details
         //Save the information in corresponding DB Tables
         //Fare System : Check problem statement
-        //Incase the train doesn't pass through the requested stations
+        //In-case the train doesn't pass through the requested stations
         //throw new Exception("Invalid stations");
         //Save the bookedTickets in the train Object
         //Also in the passenger Entity change the attribute bookedTickets by using the attribute bookingPersonId.
