@@ -36,13 +36,13 @@ public class TrainController {
     }
 
     @GetMapping("/calculate-avaiable-seats")
-    public ResponseEntity checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto) {
+    public ResponseEntity checkSeatAvailability(@RequestBody SeatAvailabilityEntryDto seatAvailabilityEntryDto) throws Exception{
         try{
             Integer count = trainService.calculateAvailableSeats(seatAvailabilityEntryDto);
             return new ResponseEntity(count, HttpStatus.OK);
         }
         catch (Exception e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new Exception(e.getMessage());
         }
 
     }

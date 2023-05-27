@@ -144,9 +144,9 @@ public class TrainService {
     public Integer calculateOldestPersonTravelling(Integer trainId) throws Exception{
         int maxAge = 0;
         Optional<Train> optionalTrain = this.trainRepository.findById(trainId);
-        if( optionalTrain.isEmpty() ){
-            throw new Exception("Train does not exist!!");
-        }
+//        if( optionalTrain.isEmpty() ){
+//            throw new Exception("Train does not exist!!");
+//        }
         Train train = optionalTrain.get();
 
         List<Ticket> bookedTickets = train.getBookedTickets();
